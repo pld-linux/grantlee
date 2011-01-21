@@ -1,14 +1,14 @@
-%define		qtver		4.6.2
+%define		qtver		4.7.1
 
 Summary:	grantlee
 Summary(pl.UTF-8):	grantlee
 Name:		grantlee
-Version:	0.1.0
+Version:	0.1.1
 Release:	1
 License:	GPL
 Group:		X11/Libraries
 Source0:	http://downloads.grantlee.org/%{name}-v%{version}.tar.gz
-# Source0-md5:	3ec14214f30cc86d10c3cab2d062ff3e
+# Source0-md5:	961e583c5ab94e7a9a714063e047ace5
 URL:		http://www.gitorious.org/grantlee/pages/Home
 BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
@@ -75,7 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_defaultfilters.so
 %attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_defaulttags.so
 %attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_loadertags.so
-%attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_scriptabletags.so
 %attr(755,root,root) %ghost %{_libdir}/libgrantlee_core.so.?
 %attr(755,root,root) %{_libdir}/libgrantlee_core.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgrantlee_gui.so.?

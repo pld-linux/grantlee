@@ -1,58 +1,59 @@
-%define		qtver		4.7.1
+%define		qt_ver		4.7.1
 
-Summary:	grantlee
-Summary(pl.UTF-8):	grantlee
+Summary:	Grantlee - set of frameworks for use with Qt
+Summary(pl.UTF-8):	Grantlee - zbiór szkieletów do wykorzystania z Qt
 Name:		grantlee
-Version:	0.1.1
+Version:	0.3.0
 Release:	1
-License:	GPL
-Group:		X11/Libraries
-Source0:	http://downloads.grantlee.org/%{name}-v%{version}.tar.gz
-# Source0-md5:	961e583c5ab94e7a9a714063e047ace5
+License:	LGPL v2.1+
+Group:		Libraries
+Source0:	http://downloads.grantlee.org/%{name}-%{version}.tar.gz
+# Source0-md5:	195763a3238f51f8885881fc8012cd83
+Patch0:		%{name}-link.patch
 URL:		http://www.gitorious.org/grantlee/pages/Home
-BuildRequires:	QtCore-devel >= %{qtver}
-BuildRequires:	QtGui-devel >= %{qtver}
-BuildRequires:	QtScript-devel >= %{qtver}
-BuildRequires:	QtSql-devel >= %{qtver}
-BuildRequires:	QtTest-devel >= %{qtver}
-BuildRequires:	QtWebKit-devel >= %{qtver}
-BuildRequires:	automoc4 >= 0.9.84
+BuildRequires:	QtCore-devel >= %{qt_ver}
+BuildRequires:	QtGui-devel >= %{qt_ver}
+BuildRequires:	QtScript-devel >= %{qt_ver}
+BuildRequires:	QtSql-devel >= %{qt_ver}
+BuildRequires:	QtTest-devel >= %{qt_ver}
+BuildRequires:	QtWebKit-devel >= %{qt_ver}
 BuildRequires:	cmake >= 2.8.0
-BuildRequires:	qt4-build >= %{qtver}
-BuildRequires:	qt4-qmake >= %{qtver}
-BuildRequires:	rpmbuild(macros) >= 1.293
+BuildRequires:	qt4-build >= %{qt_ver}
+BuildRequires:	qt4-qmake >= %{qt_ver}
+BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Grantlee is a string template engine based on the Django template
-system and written in Qt.
+system and written using Qt.
 
-#%description -l pl.UTF-8
+%description -l pl.UTF-8
+Grantlee to silnik szablonów oparty na systemie szablonów Django i
+napisany przy użyciu Qt.
 
 %package devel
-Summary:	Header files for grantlee
-Summary(pl.UTF-8):	Pliki nagłówkowe dla grantlee
+Summary:	Header files for grantlee libraries
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek grantlee
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	QtCore-devel >= %{qt_ver}
+# only _gui (textdocument) library
+Requires:	QtGui-devel >= %{qt_ver}
 
 %description devel
-Header files for grantlee.
+Header files for grantlee libraries.
 
 %description devel -l pl.UTF-8
-Pliki nagłówkowe dla grantlee.
+Pliki nagłówkowe bibliotek grantlee.
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -q
+%patch0 -p1
 
 %build
 install -d build
 cd build
-%cmake .. \
-	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64
-%endif
+%cmake ..
 
 %{__make}
 
@@ -65,27 +66,28 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p	/sbin/ldconfig
-%postun	-p	/sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
-%dir %{_libdir}/grantlee
-%dir %{_libdir}/grantlee/0.1
-%attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_defaultfilters.so
-%attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_defaulttags.so
-%attr(755,root,root) %{_libdir}/grantlee/0.1/grantlee_loadertags.so
-%attr(755,root,root) %ghost %{_libdir}/libgrantlee_core.so.?
+%doc AUTHORS CHANGELOG GOALS README
 %attr(755,root,root) %{_libdir}/libgrantlee_core.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgrantlee_gui.so.?
+%attr(755,root,root) %ghost %{_libdir}/libgrantlee_core.so.0
 %attr(755,root,root) %{_libdir}/libgrantlee_gui.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgrantlee_gui.so.0
+%dir %{_libdir}/grantlee
+%dir %{_libdir}/grantlee/0.3
+%attr(755,root,root) %{_libdir}/grantlee/0.3/grantlee_defaultfilters.so
+%attr(755,root,root) %{_libdir}/grantlee/0.3/grantlee_defaulttags.so
+%attr(755,root,root) %{_libdir}/grantlee/0.3/grantlee_i18ntags.so
+%attr(755,root,root) %{_libdir}/grantlee/0.3/grantlee_loadertags.so
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgrantlee_core.so
 %attr(755,root,root) %{_libdir}/libgrantlee_gui.so
 %{_includedir}/grantlee_core.h
-%{_includedir}/%{name}
-%{_libdir}/grantlee/0.1/GrantleeUse.cmake
-%{_libdir}/grantlee/GrantleeConfig.cmake
-%{_libdir}/grantlee/GrantleeConfigVersion.cmake
+%{_includedir}/grantlee_templates.h
+%{_includedir}/grantlee
+%{_libdir}/cmake/grantlee

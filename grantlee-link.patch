@@ -1,0 +1,10 @@
+--- grantlee-0.3.0/templates/tests/CMakeLists.txt.orig	2012-11-01 21:14:18.000000000 +0100
++++ grantlee-0.3.0/templates/tests/CMakeLists.txt	2013-03-29 12:34:59.121030848 +0100
+@@ -101,6 +101,7 @@
+   testinternationalization
+ #   benchmarks
+ )
++target_link_libraries(testgenerictypes_exec pthread)
+ 
+ add_subdirectory(pluginpointertest)
+ 

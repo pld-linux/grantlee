@@ -21,8 +21,11 @@ BuildRequires:	QtWebKit-devel >= %{qt_ver}
 BuildRequires:	cmake >= 2.8.9
 BuildRequires:	qt4-build >= %{qt_ver}
 BuildRequires:	qt4-qmake >= %{qt_ver}
+BuildRequires:	qt4-linguist >= %{qt_ver}
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define         filterout       -flto
 
 %description
 Grantlee is a string template engine based on the Django template

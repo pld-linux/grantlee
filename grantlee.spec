@@ -1,15 +1,15 @@
 %define		qt_ver		4.7.1
-%define		major_ver	0.4
+%define		major_ver	0.5
 
 Summary:	Grantlee - set of frameworks for use with Qt
 Summary(pl.UTF-8):	Grantlee - zbiór szkieletów do wykorzystania z Qt
 Name:		grantlee
-Version:	0.4.0
+Version:	0.5.1
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://downloads.grantlee.org/%{name}-%{version}.tar.gz
-# Source0-md5:	fa8a2e9be7be7e3a89e700679e6f3014
+# Source0-md5:	775f22dac0953029b414ed3b7379098c
 Patch0:		%{name}-link.patch
 URL:		http://www.gitorious.org/grantlee/pages/Home
 BuildRequires:	QtCore-devel >= %{qt_ver}
@@ -18,7 +18,7 @@ BuildRequires:	QtScript-devel >= %{qt_ver}
 BuildRequires:	QtSql-devel >= %{qt_ver}
 BuildRequires:	QtTest-devel >= %{qt_ver}
 BuildRequires:	QtWebKit-devel >= %{qt_ver}
-BuildRequires:	cmake >= 2.8.9
+BuildRequires:	cmake >= 2.8.11
 BuildRequires:	qt4-build >= %{qt_ver}
 BuildRequires:	qt4-qmake >= %{qt_ver}
 BuildRequires:	qt4-linguist >= %{qt_ver}
@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CHANGELOG GOALS README
+%doc AUTHORS CHANGELOG README
 %attr(755,root,root) %{_libdir}/libgrantlee_core.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgrantlee_core.so.0
 %attr(755,root,root) %{_libdir}/libgrantlee_gui.so.*.*.*

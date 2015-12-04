@@ -1,3 +1,5 @@
+# NOTE: for qt5 versions (>= 5.0.0) see grantlee-qt5.spec
+
 %define		qt_ver		4.7.1
 %define		major_ver	0.5
 

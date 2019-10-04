@@ -7,7 +7,7 @@ Summary:	Grantlee - set of frameworks for use with Qt
 Summary(pl.UTF-8):	Grantlee - zbiór szkieletów do wykorzystania z Qt
 Name:		grantlee
 Version:	0.5.1
-Release:	3
+Release:	4
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://downloads.grantlee.org/%{name}-%{version}.tar.gz
